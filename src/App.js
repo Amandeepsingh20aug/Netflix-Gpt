@@ -3,7 +3,7 @@ import './App.css';
 function App() {
   return (
     <div>
-     <h1>Netflix</h1>
+     <h1 className='text-4xl font-semibold text-center'>Netflix</h1>
     </div>
   );
 }
