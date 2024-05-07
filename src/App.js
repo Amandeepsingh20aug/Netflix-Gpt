@@ -1,10 +1,8 @@
-import './App.css';
+import Body from './components/Body';
 
 function App() {
   return (
-    <div>
-     <h1 className='text-4xl font-semibold text-center'>Netflix</h1>
-    </div>
+    <Body/>
   );
 }
 
