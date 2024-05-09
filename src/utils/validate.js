@@ -16,7 +16,7 @@ export const validData = (email,password,form,name) =>{
    return null;
   } else if(form === false){
     if(!name){
-      return "This Field is required"
+      return "Full Name is Required"
     }
     if(!isEmailValid){
       return "Email Id is not Valid"

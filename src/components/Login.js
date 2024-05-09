@@ -7,12 +7,11 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser} from '../utils/userSlice'
+import { BG_URL } from "../utils/constant";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [signIn, setSignIn] = useState(true);
   const [err, setErr] = useState(null);
   const dispatch = useDispatch();
@@ -49,7 +48,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setErr(error.message);
@@ -64,7 +62,6 @@ const Login = () => {
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -78,11 +75,11 @@ const Login = () => {
     setSignIn(!signIn);
   };
   return (
-    <div>
+    <div className="relative min-h-screen overflow-x-hidden">
       <Header />
       <div className="relative">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/fc164b4b-f085-44ee-bb7f-ec7df8539eff/d23a1608-7d90-4da1-93d6-bae2fe60a69b/IN-en-20230814-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={BG_URL}
           alt="img"
         />
       </div>

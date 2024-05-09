@@ -15,6 +15,9 @@
 - Created Redux Store
 - Impelemented Sign out
 - Update Profile
+- BugFix - Profile picture Update
+- BugFix - Routing Gaurd 
+- Unsubscribed to the onAuthStateChanged callback
 
 # Features
 - Login/Sing Up
