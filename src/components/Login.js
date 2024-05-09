@@ -1,21 +1,77 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { validData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser} from '../utils/userSlice'
 
 const Login = () => {
+  const navigate = useNavigate();
   const [signIn, setSignIn] = useState(true);
-  const [err,setErr] = useState(null);
+  const [err, setErr] = useState(null);
+  const dispatch = useDispatch();
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = () => {
-    const nameValue = signIn === false ? name.current.value : ''; 
+    const nameValue = signIn === false ? name.current.value : "";
     const emailValue = email.current.value;
     const passwordValue = password.current.value;
 
     const message = validData(emailValue, passwordValue, signIn, nameValue);
     setErr(message);
+
+    if (message) return;
+
+    if (signIn === false) {
+      //Sign Up logic
+      createUserWithEmailAndPassword(auth, emailValue, passwordValue)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: nameValue,
+            photoURL: "https://avatars.githubusercontent.com/u/166325440?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErr(error.message);
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    } else {
+      //Sing In logic
+      signInWithEmailAndPassword(auth, emailValue, passwordValue)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErr("Invalid Credentials");
+        });
+    }
   };
 
   const toogleSignInForm = () => {
@@ -39,7 +95,7 @@ const Login = () => {
         </h1>
         {signIn === false && (
           <input
-           ref={name}
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-600"
