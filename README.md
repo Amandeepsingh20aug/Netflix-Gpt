@@ -18,6 +18,7 @@
 - BugFix - Profile picture Update
 - BugFix - Routing Gaurd 
 - Unsubscribed to the onAuthStateChanged callback
+- Add Hardcoded values to the constant file.
 
 # Features
 - Login/Sing Up

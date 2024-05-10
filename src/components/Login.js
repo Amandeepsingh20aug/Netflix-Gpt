@@ -9,7 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser} from '../utils/userSlice'
-import { BG_URL } from "../utils/constant";
+import { BG_URL, USER_AVATAR } from "../utils/constant";
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
@@ -36,7 +36,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: nameValue,
-            photoURL: "https://avatars.githubusercontent.com/u/166325440?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
