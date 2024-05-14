@@ -19,6 +19,16 @@
 - BugFix - Routing Gaurd 
 - Unsubscribed to the onAuthStateChanged callback
 - Add Hardcoded values to the constant file.
+- Resgister for TMDB API and create the app
+- Get Data from TMDB Now playing movies
+- Custom Hook for Now Playing Movies
+- Create movieSlice
+- Update store with movies data
+- Planning for main container and secondary container
+- Fetch data for trailer video 
+- Update store with Trailer video data
+- Embbedded the Yootube video and make it autoplay and mute
+- Tailwind css to design mainContainer
 
 # Features
 - Login/Sing Up
