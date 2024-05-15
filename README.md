@@ -29,6 +29,12 @@
 - Update store with Trailer video data
 - Embbedded the Yootube video and make it autoplay and mute
 - Tailwind css to design mainContainer
+- Build Secondary Component
+- Build Movie Card
+- TMDB Image CDN URL
+- usePopularMovies Custom hook
+- useTopRatedMovies Custom hook
+- useUpComingMovies Custom hook
 
 # Features
 - Login/Sing Up
