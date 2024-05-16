@@ -35,6 +35,9 @@
 - usePopularMovies Custom hook
 - useTopRatedMovies Custom hook
 - useUpComingMovies Custom hook
+- Gpt Search Page
+- Gpt Search bar
+- Multi - Language Feature
 
 # Features
 - Login/Sing Up
