@@ -38,6 +38,9 @@
 - Gpt Search Page
 - Gpt Search bar
 - Multi - Language Feature
+- Build MoviePop up to have Show movie trailer and detail
+- Build Signout pop to prevent mistaken logout
+- Build Custom hook for - Movie Trailer and Movie Detail
 
 # Features
 - Login/Sing Up

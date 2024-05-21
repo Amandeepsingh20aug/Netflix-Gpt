@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -7,8 +6,9 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { addUser, removeUser } from '../utils/userSlice'
 import { LOGO, SUPPORTED_LANGUAGES } from '../utils/constant';
-import { toogleGptSearchView } from '../utils/gptSlice';
+import {toogleGptSearchView } from '../utils/gptSlice';
 import { changeLanguage } from '../utils/configSlice';
+import { showSignOutPopUp } from '../utils/singoutSlice';
 
 
 const Header = () => {
@@ -16,10 +16,9 @@ const Header = () => {
   const dispatch = useDispatch()
   const data = useSelector((store)=> store.user)
   const showGpt = useSelector((store)=>store.gpt.showGptSearch)
+
   const handleSignOut = ()=>{
-    signOut(auth).then(() => {
-    }).catch((error) => {
-    });
+    dispatch(showSignOutPopUp(true))
   }
 
   useEffect(()=>{
