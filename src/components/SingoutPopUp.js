@@ -3,7 +3,7 @@ import React from "react";
 import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { showSignOutPopUp } from "../utils/singoutSlice";
-import { showSearchSpinner } from "../utils/gptSlice";
+import { showSearchSpinner, toogleGptSearchView } from "../utils/gptSlice";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,6 +15,7 @@ const SingoutPopUp = () => {
     signOut(auth).then(() => {
        dispatch(showSearchSpinner(false))
        dispatch(showSignOutPopUp(false))
+       dispatch(toogleGptSearchView())
     }).catch((error) => {
     });
   }
