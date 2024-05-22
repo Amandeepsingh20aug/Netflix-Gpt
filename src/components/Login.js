@@ -87,15 +87,16 @@ const Login = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <Header />
-      <div className="relative">
+      <div className="relative ">
         <img
+          className="w-screen h-screen object-cover"
           src={BG_URL}
           alt="img"
         />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="p-12 bg-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/12 text-white rounded-lg bg-opacity-80"
+        className="p-12 bg-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-3/12 text-white rounded-lg bg-opacity-80 w-full"
       >
         <h1 className="font-bold text-3xl p-2 my-2">
          {signIn === true ? "Sign In" : "Sign Up"}

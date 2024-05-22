@@ -45,19 +45,19 @@ const GptSearchBar = () => {
     dispatch(showSearchSpinner(false))
   };
   return (
-    <div className="pt-[10%] flex justify-center">
+    <div className="md:pt-[10%] pt-[40%] flex justify-center">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className=" bg-black w-1/2 grid grid-cols-12"
+        className="w-full bg-black md:w-1/2 grid grid-cols-12"
       >
         <input
           type="text"
           placeholder={lang[language].gptSearchPlaceholder}
-          className="p-4 m-4 col-span-9"
+          className="p-4 m-4 md:col-span-9 col-span-12"
           ref={searchInput}
         />
         <button
-          className={!spinner ? "py-2 px-4 m-4 bg-red-700 text-white rounded-lg col-span-3" : "py-2 px-4 m-4 bg-black text-white rounded-lg col-span-3" } disabled={spinner && "true"}
+          className={!spinner ? "py-2 px-4 m-4 bg-red-700 text-white rounded-lg md:col-span-3 col-span-12" : "py-2 px-4 m-4 bg-black text-white rounded-lg md:col-span-3 col-span-12" } disabled={spinner && "true"}
           onClick={handleGptSearch}
         >
          {spinner === false ? lang[language].search : <FontAwesomeIcon icon={faSpinner} spin size="lg" />}

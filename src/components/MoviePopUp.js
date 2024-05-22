@@ -13,10 +13,10 @@ const MoviePopUp = ({ sampleVideo, onClose, movieDetails }) => {
   };
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50"
+      className="fixed inset-0 flex md:items-center items-end justify-center z-40 bg-black bg-opacity-50"
       onClick={handleClickOutside}
     >
-      <div className="w-[40%] bg-gray-400 popup-content">
+      <div className="md:w-[40%] w-full bg-gray-400 popup-content">
         <MovieContainer video={sampleVideo?.key} />
         <MovieDetails title={original_title} overview={overview} />
       </div>

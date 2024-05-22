@@ -7,7 +7,7 @@ const MainContainer = () => {
   if (movies === null) return;
   const mainMovie = movies[0];
   return (
-    <div>
+    <div className="md:pt-0 pt-[30%] bg-black">
       <VideoTitle title={mainMovie.original_title} description={mainMovie.overview}/>
       <VideoBackground  movieId={mainMovie.id}/>
     </div>
