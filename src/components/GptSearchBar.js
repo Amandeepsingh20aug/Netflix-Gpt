@@ -3,14 +3,18 @@ import lang from "../utils/languageConstants";
 import { useDispatch, useSelector } from "react-redux";
 import openai from "../utils/openai";
 import { options } from "../utils/constant";
-import { addGptMovieResult } from "../utils/gptSlice";
+import { addGptMovieResult, showSearchSpinner } from "../utils/gptSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const GptSearchBar = () => {
   const dispatch = useDispatch();
   const language = useSelector((store) => store.config.lang);
+  const spinner = useSelector((store)=>store.gpt.searchSpinner)
   const searchInput = useRef(null);
   
   const SearchMovieTMDB = async (movie) =>{
+    dispatch(showSearchSpinner(true));
     const data = await fetch("https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1", options);
 
     const json = await data.json();
@@ -19,6 +23,7 @@ const GptSearchBar = () => {
   }
 
   const handleGptSearch = async () => {
+    if(!searchInput.current.value) return 
     const gptQuery =
       "Act as a Movie Recommendation sysytem and suggest some movies for the query :" +
       searchInput.current.value +
@@ -37,6 +42,7 @@ const GptSearchBar = () => {
 
     const tmdbResults = await Promise.all(data);
     dispatch(addGptMovieResult({movieNames : gptMovies, movieResults : tmdbResults}))
+    dispatch(showSearchSpinner(false))
   };
   return (
     <div className="pt-[10%] flex justify-center">
@@ -51,10 +57,10 @@ const GptSearchBar = () => {
           ref={searchInput}
         />
         <button
-          className="py-2 px-4 m-4 bg-red-700 text-white rounded-lg col-span-3"
+          className={!spinner ? "py-2 px-4 m-4 bg-red-700 text-white rounded-lg col-span-3" : "py-2 px-4 m-4 bg-black text-white rounded-lg col-span-3" } disabled={spinner && "true"}
           onClick={handleGptSearch}
         >
-          {lang[language].search}
+         {spinner === false ? lang[language].search : <FontAwesomeIcon icon={faSpinner} spin size="lg" />}
         </button>
       </form>
     </div>

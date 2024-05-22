@@ -6,6 +6,7 @@ const gptSlice = createSlice({
     showGptSearch : false,
     movieResults : null,
     movieNames : null,
+    searchSpinner : false,
   },
   reducers : {
     toogleGptSearchView : (state,action) =>{
@@ -16,8 +17,11 @@ const gptSlice = createSlice({
       state.movieNames = movieNames
       state.movieResults = movieResults
     },
+    showSearchSpinner : (state,action) =>{
+      state.searchSpinner = action.payload
+    }
   }
 })
 
-export const {toogleGptSearchView,addGptMovieResult} = gptSlice.actions;
+export const {toogleGptSearchView,addGptMovieResult,showSearchSpinner} = gptSlice.actions;
 export default gptSlice.reducer
