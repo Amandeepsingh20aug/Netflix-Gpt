@@ -1,13 +1,19 @@
 import { signOut } from "firebase/auth";
 import React from "react";
 import { auth } from "../utils/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showSignOutPopUp } from "../utils/singoutSlice";
+import { showSearchSpinner } from "../utils/gptSlice";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SingoutPopUp = () => {
+  const spinner = useSelector((store)=>store.gpt.searchSpinner)
   const dispatch = useDispatch();
    const handleSignOut = ()=>{
+    dispatch(showSearchSpinner(true))
     signOut(auth).then(() => {
+       dispatch(showSearchSpinner(false))
        dispatch(showSignOutPopUp(false))
     }).catch((error) => {
     });
@@ -24,7 +30,7 @@ const SingoutPopUp = () => {
           </h1>
         </div>
         <div className="mt-10">
-          <button className="flex justify-center m-auto bg-red-700 text-white p-4 w-1/2 text-2xl rounded-lg" onClick={handleSignOut}>SignOut</button>
+          <button className="flex justify-center m-auto bg-red-700 text-white p-4 w-1/2 text-2xl rounded-lg" onClick={handleSignOut}>{!spinner ? 'SignOut' : <FontAwesomeIcon icon={faSpinner} spin size="lg" />}</button>
         </div>
         <div className="my-5">
           <button className="flex justify-center m-auto bg-black text-white p-4 w-1/2 text-2xl rounded-lg" onClick={closePopUp}>Cancle</button>
