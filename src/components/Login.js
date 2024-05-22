@@ -7,11 +7,15 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser} from '../utils/userSlice'
 import { BG_URL, USER_AVATAR } from "../utils/constant";
+import { showSearchSpinner } from "../utils/gptSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
+  const spinner = useSelector((store)=>store.gpt.searchSpinner);
   const [signIn, setSignIn] = useState(true);
   const [err, setErr] = useState(null);
   const dispatch = useDispatch();
@@ -31,6 +35,7 @@ const Login = () => {
 
     if (signIn === false) {
       //Sign Up logic
+      dispatch(showSearchSpinner(true))
       createUserWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
@@ -48,22 +53,27 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
+              dispatch(showSearchSpinner(false))
             })
             .catch((error) => {
               setErr(error.message);
             });
         })
         .catch((error) => {
+          dispatch(showSearchSpinner(false))
           const errorCode = error.code;
           const errorMessage = error.message;
         });
     } else {
       //Sing In logic
+      dispatch(showSearchSpinner(true))
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
+          dispatch(showSearchSpinner(false))
         })
         .catch((error) => {
+          dispatch(showSearchSpinner(false))
           const errorCode = error.code;
           const errorMessage = error.message;
           setErr("Invalid Credentials");
@@ -88,7 +98,7 @@ const Login = () => {
         className="p-12 bg-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/12 text-white rounded-lg bg-opacity-80"
       >
         <h1 className="font-bold text-3xl p-2 my-2">
-          {signIn === true ? "Sign In" : "Sign Up"}
+         {signIn === true ? "Sign In" : "Sign Up"}
         </h1>
         {signIn === false && (
           <input
@@ -115,7 +125,7 @@ const Login = () => {
           className="p-4 my-6 bg-red-700 w-full rounded-lg"
           onClick={handleButtonClick}
         >
-          {signIn === true ? "Sign In" : "Sign Up"}
+         { !spinner ? signIn === true ? "Sign In" : "Sign Up" : <FontAwesomeIcon icon={faSpinner} spin size="lg" /> }
         </button>
         <p className="py-4 cursor-pointer" onClick={toogleSignInForm}>
           {signIn === true
