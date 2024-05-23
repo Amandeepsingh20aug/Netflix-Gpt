@@ -9,13 +9,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SingoutPopUp = () => {
   const spinner = useSelector((store)=>store.gpt.searchSpinner)
+  const showGpt = useSelector((store) => store.gpt.showGptSearch);
   const dispatch = useDispatch();
    const handleSignOut = ()=>{
     dispatch(showSearchSpinner(true))
     signOut(auth).then(() => {
        dispatch(showSearchSpinner(false))
        dispatch(showSignOutPopUp(false))
-       dispatch(toogleGptSearchView())
+       showGpt && dispatch(toogleGptSearchView())
     }).catch((error) => {
     });
   }
