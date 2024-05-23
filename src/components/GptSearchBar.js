@@ -14,7 +14,6 @@ const GptSearchBar = () => {
   const searchInput = useRef(null);
   
   const SearchMovieTMDB = async (movie) =>{
-    dispatch(showSearchSpinner(true));
     const data = await fetch("https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1", options);
 
     const json = await data.json();
@@ -23,7 +22,8 @@ const GptSearchBar = () => {
   }
 
   const handleGptSearch = async () => {
-    if(!searchInput.current.value) return 
+    if(!searchInput.current.value) return
+    dispatch(showSearchSpinner(true)); 
     const gptQuery =
       "Act as a Movie Recommendation sysytem and suggest some movies for the query :" +
       searchInput.current.value +
