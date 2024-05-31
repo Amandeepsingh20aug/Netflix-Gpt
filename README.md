@@ -57,3 +57,11 @@
 - Netflix Gpt
     - Serach Bar
     - Movie Suggestion
+
+-Sample 
+ 
+
+https://github.com/Amandeepsingh20aug/Netflix-Gpt/assets/166325440/53561913-a70c-461b-b34c-ca860b904575
+
+
+   
